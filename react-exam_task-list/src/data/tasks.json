@@ -1,0 +1,36 @@
+[
+    {
+        "id": 1,
+        "title": "Task 1",
+        "dueDate": "2024-08-15T10:00:00",
+        "description": "Description of Task 1",
+        "tags": [
+            "urgent",
+            "home"
+        ],
+        "priority": "high",
+        "projectId": "1"
+    },
+    {
+        "id": 2,
+        "title": "Task 2",
+        "dueDate": "2024-08-16T14:00:00",
+        "description": "Description of Task 2",
+        "tags": [
+            "work"
+        ],
+        "priority": "medium",
+        "projectId": null
+    },
+    {
+        "id": 3,
+        "title": "Task 3",
+        "dueDate": "2024-08-16T14:00:00",
+        "description": "Description of Task 3",
+        "tags": [
+            "work"
+        ],
+        "priority": "medium",
+        "projectId": 2
+    }
+]

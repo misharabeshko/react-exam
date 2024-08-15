@@ -1,8 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
-    ListItemText,
-    ListItem,
-    List,
     Typography,
     InputLabel,
     FormControl,
@@ -14,35 +11,46 @@ import {
     TextField,
 } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
-
 import TaskCard from "../../components/cards/TaskCard";
+
+import { useAction } from "../../hooks/useAction";
+import { useSelector } from "react-redux";
 
 
 const TaskListPage = () => {
+    const { taskList, tasksLoaded } = useSelector(state => state.taskReducer);
+    const { loadTasks, removeTask } = useAction();
 
-    const [tasks, setTasks] = useState([
-        { id: 1, title: 'Task 1', dueDate: '2024-08-15T10:00:00', description: "Description of Task 1", tags: ["urgent", "home"], priority: "high", projectId: 1 },
-        { id: 2, title: 'Task 2', dueDate: '2024-08-15T10:00:00', description: "Description of Task 2", tags: ["urgent", "home"], priority: "high", projectId: 1 },
-        { id: 3, title: 'Task 3', dueDate: '2024-08-15T10:00:00', description: "Description of Task 3", tags: ["urgent", "home"], priority: "high", projectId: 1 },
-    ]);
+    const deleteTaskHandler = (id) => {
+        removeTask(id, taskList);
+    };
 
-    const navigate = useNavigate();
+    useEffect(() => {
+        if (!tasksLoaded) {
+            loadTasks();
+        }
+    }, []);
+
+
+
+
+
 
 
     const [filter, setFilter] = useState('');
 
     const handleFilterChange = (event) => {
         setFilter(event.target.value);
-        // console.log(event.target.value);
     };
 
 
+    const navigate = useNavigate();
 
     const handleSearchTaskClick = () => {
-        navigate('/');
+        navigate("/");
     };
     const handleAddTaskClick = () => {
-        navigate('/');
+        navigate("taskFormPage");
     };
 
 
@@ -109,7 +117,7 @@ const TaskListPage = () => {
 
 
 
-                    {tasks.map(task => (
+                    {taskList.map(task => (
                         <TaskCard key={task.id} task={task} />
                     ))}
 

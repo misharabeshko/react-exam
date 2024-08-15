@@ -1,8 +1,28 @@
 import React, { useState } from 'react';
 import { Card, CardContent, Typography, Divider, IconButton, Collapse, Button, Stack } from '@mui/material';
 import { AccessTime, PriorityHigh, Label, ExpandMore, ExpandLess, Edit, Delete } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
+
+import { useAction } from "../../hooks/useAction";
+import { useSelector } from "react-redux";
+
 
 const TaskCard = ({ task }) => {
+    const { taskList, tasksLoaded } = useSelector(state => state.taskReducer);
+    const { loadTasks, removeTask } = useAction();
+
+    const navigate = useNavigate();
+
+
+    const deleteTaskHandler = (id) => {
+        removeTask(id, taskList);
+    };
+
+    const editTaskHandler = (id) => {
+        navigate(`/taskFormPage/${id}`);
+    }
+
+
     const [expanded, setExpanded] = useState(false);
 
     const handleExpandClick = () => {
@@ -27,14 +47,17 @@ const TaskCard = ({ task }) => {
                     </Typography>
 
                     <Typography variant="body2" color="textSecondary" sx={{ flexGrow: 0.7 }}>
-                        Project ID: {task.projectId}
+                        Project ID: {task.projectId !== null ? task.projectId : "Not Available"}
                     </Typography>
 
-                    <IconButton aria-label="edit">
+                    <IconButton aria-label="edit"
+                        onClick={() => editTaskHandler(task.id)}>
+
                         <Edit />
                     </IconButton>
 
-                    <IconButton aria-label="delete">
+                    <IconButton aria-label="delete"
+                        onClick={() => deleteTaskHandler(task.id)}>
                         <Delete />
                     </IconButton>
 
