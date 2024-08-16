@@ -6,23 +6,28 @@ import { ThemeProvider } from '@mui/material/styles';
 import theme from './theming/theme';
 
 import TaskList from "./pages/taskList/TaskListPage";
-import TaskFormPage from './pages/TaskFormPage/taskFormPage';
-import ProjectListPage from './pages/projectListPage/ProjectListPage';
+import ProjectListPage from "./pages/projectListPage/ProjectListPage";
 
+import TaskFormPage from "./pages/TaskFormPage/taskFormPage";
+import ProjectFormPage from "./pages/ProjectFormPage/ProjectFormPage";
 
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-
       <Routes>
+
         <Route path="/" element={<DefaultLayout />}>
           <Route index element={<TaskList />} />
 
           <Route path="taskFormPage" element={<TaskFormPage />} />
           <Route path="taskFormPage/:taskId" element={<TaskFormPage />} />
 
+
           <Route path="projectListPage" element={<ProjectListPage />} />
+
+          <Route path="projectFormPage" element={<ProjectFormPage />} />
+          <Route path="projectFormPage/:projectId" element={<ProjectFormPage />} />
 
 
         </Route>

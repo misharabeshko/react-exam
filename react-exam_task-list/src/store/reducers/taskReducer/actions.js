@@ -37,8 +37,9 @@ export const editTask = (task) => (dispatch, getState) => {
 
 
 
-export const removeTask = (id, tasks) => (dispatch) => {
-    const newData = tasks.filter(t => t.id != id);
+export const removeTask = (id) => (dispatch, getState) => {
+    const { taskList } = getState().taskReducer;
+    const newData = taskList.filter(t => t.id != id);
 
     dispatch({
         type: "REMOVE_TASK",

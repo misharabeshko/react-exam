@@ -30,7 +30,7 @@ const ProjectListPage = () => {
     const navigate = useNavigate();
 
     const handleAddProjectClick = () => {
-        navigate("/");
+        navigate("/projectFormPage");
     };
 
 
@@ -66,7 +66,7 @@ const ProjectListPage = () => {
                             color="primary"
                             fullWidth
                             sx={{ height: "100%" }}
-                        onClick={handleAddProjectClick}
+                            onClick={handleAddProjectClick}
                         >
                             Add Project
                         </Button>

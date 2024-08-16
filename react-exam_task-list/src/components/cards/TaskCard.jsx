@@ -21,7 +21,7 @@ const TaskCard = ({ task }) => {
     }, []);
 
     const deleteTaskHandler = (id) => {
-        removeTask(id, taskList);
+        removeTask(id);
     };
 
     const editTaskHandler = (id) => {

@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 
 const ProjectCard = ({ project }) => {
     const { projectList, projectsLoaded } = useSelector(state => state.projectReducer);
-    // const { removeProject } = useAction();
+    const { removeProject, removeTask } = useAction();
 
     const { taskList, tasksLoaded } = useSelector(state => state.taskReducer);
 
@@ -37,12 +37,16 @@ const ProjectCard = ({ project }) => {
     const navigate = useNavigate();
 
 
-    const deleteProjectHandler = () => {
-        // removeProject();
+    const deleteProjectHandler = (projectId) => {
+        projectTasks.forEach(task => {
+            removeTask(task.id);    
+        });
+
+        removeProject(projectId);
     };
 
-    const editProjectHandler = () => {
-        // navigate(`/projectFormPage/${}`);
+    const editProjectHandler = (id) => {
+        navigate(`/projectFormPage/${project.id}`);
     }
 
 

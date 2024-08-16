@@ -12,37 +12,37 @@ export const loadProjects = () => (dispatch) => {
     }
 };
 
-// export const addProject = (task) => (dispatch, getState) => {
-//     const { taskList } = getState().taskReducer;
-//     const newData = [...taskList, task];
+export const addProject = (project) => (dispatch, getState) => {
+    const { projectList } = getState().projectReducer;
+    const newData = [...projectList, project];
 
-//     dispatch({
-//         type: "ADD_TASK",
-//         payload: newData
-//     });
-// };
-
-
-// export const editProject = (task) => (dispatch, getState) => {
-//     const { taskList } = getState().taskReducer;
-
-//     const updatedTaskList = taskList.map(t =>
-//         t.id === task.id ? { ...t, ...task } : t
-//     );
-
-//     dispatch({
-//         type: "EDIT_TASK",
-//         payload: updatedTaskList
-//     });
-// };
+    dispatch({
+        type: "ADD_PROJECT",
+        payload: newData
+    });
+};
 
 
+export const editProject = (project) => (dispatch, getState) => {
+    const { projectList } = getState().projectReducer;
 
-// export const removeProject = (id, tasks) => (dispatch) => {
-//     const newData = tasks.filter(t => t.id != id);
+    const updatedProjectList = projectList.map(p =>
+        p.id === project.id ? { ...p, ...project } : p
+    );
 
-//     dispatch({
-//         type: "REMOVE_TASK",
-//         payload: newData
-//     });
-// };
+    dispatch({
+        type: "EDIT_PROJECT",
+        payload: updatedProjectList
+    });
+};
+
+export const removeProject = (projectId) => (dispatch, getState) => {
+    const { projectList } = getState().projectReducer;
+
+    const updatedProjects = projectList.filter(project => project.id !== projectId);
+
+    dispatch({
+        type: "REMOVE_PROJECT",
+        payload: updatedProjects
+    });
+};
