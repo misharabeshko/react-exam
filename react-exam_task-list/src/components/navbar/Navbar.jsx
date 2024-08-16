@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 
 const pages = [
     { id: "1", title: "Task List", url: "/" },
-    { id: "2", title: "Project List", url: "/" },
+    { id: "2", title: "Project List", url: "projectListPage" },
     { id: "3", title: "Search", url: "/" }
 ];
 

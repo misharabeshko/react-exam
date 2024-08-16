@@ -11,9 +11,9 @@ const TaskFormPage = () => {
 
     const { taskId } = useParams();
     const { taskList } = useSelector(state => state.taskReducer);
+    const { projectList } = useSelector(state => state.projectReducer);
 
     const { addTask, editTask } = useAction();
-    const [task, setTask] = useState(null);
 
 
 
@@ -21,30 +21,26 @@ const TaskFormPage = () => {
         if (taskId) {
             const foundTask = taskList.find(t => t.id === Number(taskId));
             if (foundTask) {
-                setTask(foundTask);
                 formik.setValues({
                     title: foundTask.title || '',
                     dueDate: foundTask.dueDate || '',
                     description: foundTask.description || '',
                     tags: foundTask.tags.join(', ') || '',
                     priority: foundTask.priority || '',
-                    projectId: foundTask.projectId || null
+                    projectId: foundTask.projectId || ''
                 });
-            } else {
-                formik.resetForm();
             }
-        } else {
-            formik.resetForm();
         }
     }, [taskId]);
 
     const validationSchema = Yup.object({
         title: Yup.string().required('Required'),
-        dueDate: Yup.date().required('Required').nullable(),
+        dueDate: Yup.date().required('Required'),
         description: Yup.string(),
         tags: Yup.string(),
         priority: Yup.string().oneOf(['low', 'medium', 'high'], 'Invalid priority').required('Required'),
         projectId: Yup.string().nullable(),
+
     });
 
     const formik = useFormik({
@@ -54,7 +50,7 @@ const TaskFormPage = () => {
             description: '',
             tags: '',
             priority: '',
-            projectId: null,
+            projectId: ''
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
@@ -67,7 +63,7 @@ const TaskFormPage = () => {
                 description: values.description,
                 tags: tagsArray,
                 priority: values.priority,
-                projectId: values.projectId
+                projectId: values.projectId || null
             };
 
             if (taskId) {
@@ -159,7 +155,7 @@ const TaskFormPage = () => {
                 </Grid>
 
 
-                <Grid item xs={12}>
+                <Grid item xs={12} sm={6}>
                     <FormControl fullWidth margin="normal">
                         <InputLabel>Priority</InputLabel>
                         <Select
@@ -182,6 +178,36 @@ const TaskFormPage = () => {
                         )}
                     </FormControl>
                 </Grid>
+
+
+                <Grid item xs={12} sm={6}>
+                    <FormControl fullWidth margin="normal">
+                        <InputLabel>Project</InputLabel>
+                        <Select
+                            name="projectId"
+                            label="Project"
+                            value={formik.values.projectId || ''}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={formik.touched.projectId && Boolean(formik.errors.projectId)}
+                        >
+                            <MenuItem value="">
+                                <em>No project</em>
+                            </MenuItem>
+                            {projectList.map(project => (
+                                <MenuItem key={project.id} value={project.id}>
+                                    {project.name}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                        {formik.touched.projectId && formik.errors.projectId && (
+                            <FormHelperText sx={{ color: "error.main", fontSize: 14 }}>
+                                {formik.errors.projectId}
+                            </FormHelperText>
+                        )}
+                    </FormControl>
+                </Grid>
+
 
 
                 <Grid item xs={6}>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
 import { Card, CardContent, Typography, Divider, IconButton, Collapse, Button, Stack } from '@mui/material';
 import { AccessTime, PriorityHigh, Label, ExpandMore, ExpandLess, Edit, Delete } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
@@ -8,11 +8,17 @@ import { useSelector } from "react-redux";
 
 
 const TaskCard = ({ task }) => {
-    const { taskList, tasksLoaded } = useSelector(state => state.taskReducer);
-    const { loadTasks, removeTask } = useAction();
+    const { taskList } = useSelector(state => state.taskReducer);
+    const { projectList, projectsLoaded } = useSelector(state => state.projectReducer);
+    const { removeTask, loadProjects } = useAction();
 
     const navigate = useNavigate();
 
+    useEffect(() => {
+        if (!projectsLoaded) {
+            loadProjects();
+        }
+    }, []);
 
     const deleteTaskHandler = (id) => {
         removeTask(id, taskList);
@@ -28,6 +34,10 @@ const TaskCard = ({ task }) => {
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
+
+
+    const project = projectList.find(p => p.id === task.projectId);
+
 
     return (
         <Card sx={{ marginBottom: 2, width: '100%', position: 'relative' }}>
@@ -47,7 +57,7 @@ const TaskCard = ({ task }) => {
                     </Typography>
 
                     <Typography variant="body2" color="textSecondary" sx={{ flexGrow: 0.7 }}>
-                        Project ID: {task.projectId !== null ? task.projectId : "Not Available"}
+                        Project: {project ? project.name : "No project"}
                     </Typography>
 
                     <IconButton aria-label="edit"

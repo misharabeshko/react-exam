@@ -9,7 +9,7 @@
             "home"
         ],
         "priority": "high",
-        "projectId": "1"
+        "projectId": null
     },
     {
         "id": 2,
@@ -20,7 +20,7 @@
             "work"
         ],
         "priority": "medium",
-        "projectId": null
+        "projectId": 1
     },
     {
         "id": 3,

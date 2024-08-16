@@ -7,7 +7,7 @@ import theme from './theming/theme';
 
 import TaskList from "./pages/taskList/TaskListPage";
 import TaskFormPage from './pages/TaskFormPage/taskFormPage';
-
+import ProjectListPage from './pages/projectListPage/ProjectListPage';
 
 
 
@@ -21,6 +21,8 @@ function App() {
 
           <Route path="taskFormPage" element={<TaskFormPage />} />
           <Route path="taskFormPage/:taskId" element={<TaskFormPage />} />
+
+          <Route path="projectListPage" element={<ProjectListPage />} />
 
 
         </Route>
