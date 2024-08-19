@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 
 
 const TaskCard = ({ task }) => {
-    const { taskList } = useSelector(state => state.taskReducer);
     const { projectList, projectsLoaded } = useSelector(state => state.projectReducer);
     const { removeTask, loadProjects } = useAction();
 

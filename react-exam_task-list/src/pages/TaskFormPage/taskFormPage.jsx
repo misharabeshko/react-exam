@@ -91,9 +91,11 @@ const TaskFormPage = () => {
                         name="title"
                         fullWidth
                         margin="normal"
+
                         value={formik.values.title}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
+
                         error={formik.touched.title && Boolean(formik.errors.title)}
                         helperText={formik.touched.title && formik.errors.title}
                         FormHelperTextProps={{

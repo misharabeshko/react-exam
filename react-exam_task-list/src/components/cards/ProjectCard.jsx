@@ -11,14 +11,14 @@ import { useSelector } from "react-redux";
 
 
 const ProjectCard = ({ project }) => {
-    const { projectList, projectsLoaded } = useSelector(state => state.projectReducer);
-    const { removeProject, removeTask } = useAction();
-
     const { taskList, tasksLoaded } = useSelector(state => state.taskReducer);
-
+    const { removeProject, removeTask } = useAction();
+    const { loadTasks } = useAction();
 
     const [projectTasks, setProjectTasks] = useState([]);
-    const { loadTasks } = useAction();
+
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         if (!tasksLoaded) {
@@ -34,19 +34,17 @@ const ProjectCard = ({ project }) => {
 
 
 
-    const navigate = useNavigate();
-
 
     const deleteProjectHandler = (projectId) => {
         projectTasks.forEach(task => {
-            removeTask(task.id);    
+            removeTask(task.id);
         });
 
         removeProject(projectId);
     };
 
     const editProjectHandler = (id) => {
-        navigate(`/projectFormPage/${project.id}`);
+        navigate(`/projectFormPage/${id}`);
     }
 
 
